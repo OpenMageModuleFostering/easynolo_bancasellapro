@@ -1,0 +1,17 @@
+<?php
+/**
+ * @category EasyNolo
+ * @package  EasyNolo_BancaSellaPro
+ * @author   Easy Nolo <ecommerce@sella.it>
+ */
+?>
+<div class="page-title">
+	<h1><img src="<?php echo $this->getSkinUrl('images/easynolo_bancasella/wait.gif') ?>" class="logo" alt="<?php echo $this->__('You are redirecting to Banca Sella for completion of payment') ?>" /><?php echo $this->__('You are redirecting to Banca Sella for completion of payment') ?></h1>
+</div>
+<?php if($this->getMessage()): ?>
+    <p><?php echo $this->getMessage() ?></p>
+<?php endif; ?>
+<?php echo $this->getRedirectOutput() ?>
+<?php if(!$this->isHtmlFormRedirect()): ?>
+    <p><?php echo $this->__('Click <a href="%s">here</a> if you are not redirected within 10 seconds...', $this->getTargetURL()) ?></p>
+<?php endif; ?>

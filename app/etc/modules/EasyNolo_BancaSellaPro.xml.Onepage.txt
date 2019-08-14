@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <EasyNolo_BancaSellaPro>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <!--WARNING: Only if you use IWD_Opc you have to enable the follow depends-->
+                <IWD_Opc />
+            </depends>
+        </EasyNolo_BancaSellaPro>
+    </modules>
+</config>

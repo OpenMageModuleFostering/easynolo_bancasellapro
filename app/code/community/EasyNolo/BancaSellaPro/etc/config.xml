@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <EasyNolo_BancaSellaPro>
+            <version>1.4.0</version>
+        </EasyNolo_BancaSellaPro>
+    </modules>
+    <global>
+        <blocks>
+            <easynolo_bancasellapro>
+                <class>EasyNolo_BancaSellaPro_Block</class>
+            </easynolo_bancasellapro>
+        </blocks>
+        <helpers>
+            <easynolo_bancasellapro>
+                <class>EasyNolo_BancaSellaPro_Helper</class>
+            </easynolo_bancasellapro>
+        </helpers>
+        <models>
+            <easynolo_bancasellapro>
+                <class>EasyNolo_BancaSellaPro_Model</class>
+                <resourceModel>easynolo_bancasellapro_resource</resourceModel>
+            </easynolo_bancasellapro>
+
+            <easynolo_bancasellapro_resource>
+                <class>EasyNolo_BancaSellaPro_Model_Resource</class>
+                <entities>
+                    <token>
+                        <table>easynolo_bancasellapro_token</table>
+                    </token>
+                </entities>
+            </easynolo_bancasellapro_resource>
+            <sales>
+                <rewrite>
+                    <recurring_profile>EasyNolo_BancaSellaPro_Model_Sales_Recurring_Profile</recurring_profile>
+                </rewrite>
+            </sales>
+        </models>
+        <!--To show the order in pending payment state before bancasella send a s2s request-->
+        <sales>
+            <order>
+                <states>
+                    <pending_payment translate="label">
+                        <label>Pending Payment</label>
+                        <statuses>
+                            <pending_payment default="1"/>
+                        </statuses>
+                        <visible_on_front>1</visible_on_front>
+                    </pending_payment>
+                </states>
+            </order>
+        </sales>
+        <resources>
+            <easynolo_bancasellapro_setup>
+                <setup>
+                    <module>EasyNolo_BancaSellaPro</module>
+                </setup>
+            </easynolo_bancasellapro_setup>
+        </resources>
+    </global>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <EasyNolo_BancaSellaPro />
+            </modules>
+        </suite>
+    </phpunit>
+
+    <frontend>
+        <routers>
+            <easynolo_bancasellapro>
+                <use>standard</use>
+                <args>
+                    <module>EasyNolo_BancaSellaPro</module>
+                    <frontName>bancasellapro</frontName>
+                </args>
+            </easynolo_bancasellapro>
+            <opc>
+                <args>
+                    <modules>
+                        <easynolo_bancasellapro before="IWD_Opc">EasyNolo_BancaSellaPro</easynolo_bancasellapro>
+                    </modules>
+                </args>
+            </opc>
+        </routers>
+        <layout>
+            <updates>
+                <easynolo_bancasellapro>
+                    <file>easynolo_bancasellapro.xml</file>
+                </easynolo_bancasellapro>
+            </updates>
+        </layout>
+        <events>
+            <easynolo_bancasellapro_gestpay_success_action>
+                <observers>
+                    <googleanalytics_order_success>
+                        <class>googleanalytics/observer</class>
+                        <method>setGoogleAnalyticsOnOrderSuccessPageView</method>
+                    </googleanalytics_order_success>
+                </observers>
+            </easynolo_bancasellapro_gestpay_success_action>
+            <iwd_opc_before_send_result_save_payment>
+                <observers>
+                    <easynolo_bancasellapro_add_result>
+                        <class>easynolo_bancasellapro/observer</class>
+                        <method>addDataToResultSavePaymentIWD</method>
+                    </easynolo_bancasellapro_add_result>
+                </observers>
+            </iwd_opc_before_send_result_save_payment>
+        </events>
+        <translate>
+            <modules>
+                <easynolo_bancasellapro>
+                    <files>
+                        <default>EasyNolo_BancaSellaPro.csv</default>
+                    </files>
+                </easynolo_bancasellapro>
+            </modules>
+        </translate>
+    </frontend>
+    <crontab>
+        <jobs>
+            <easynolo_bancasellapro_recurring_profile_charge>
+                <schedule>
+                    <cron_expr>0 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>easynolo_bancasellapro/observer::chargeRecurringProfiles</model>
+                </run>
+            </easynolo_bancasellapro_recurring_profile_charge>
+        </jobs>
+    </crontab>
+    <default>
+        <payment>
+            <gestpaypro>
+                <active>0</active>
+                <model>easynolo_bancasellapro/gestpay</model>
+                <debug>0</debug>
+                <log>0</log>
+                <order_status_ko_user>canceled</order_status_ko_user>
+                <order_status_ko_gestpay>holded</order_status_ko_gestpay>
+                <order_status_ok_gestpay>processing</order_status_ok_gestpay>
+                <order_status_fraud_gestpay>1</order_status_fraud_gestpay>
+                <title>Banca Sella GestPay Pro</title>
+                <description>You will be redirected to Banca Sella payment website</description>
+                <iframe>0</iframe>
+                <tokenization>0</tokenization>
+                <allowspecific>0</allowspecific>
+                <language>0</language>
+                <currency>242</currency>
+            </gestpaypro>
+        </payment>
+    </default>
+</config>

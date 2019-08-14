@@ -1,0 +1,98 @@
+
+<?php /* @var $this EasyNolo_BancaSellaPro_Block_Tokenization_Newtoken*/?>
+<?php /* @var $method EasyNolo_BancaSellaPro_Model_Gestpay */?>
+<?php $method = $this->getMethod() ?>
+<?php $_code=$this->getMethodCode() ?>
+<?php $merchantId = $method->getMerchantId() ?>
+
+<?php
+
+/** @var EasyNolo_BancaSellaPro_Helper_Crypt $helper */
+$encriptString = false;
+//solo se il form è richimato in ajax recupero la stringa
+if( $method->isIframeEnable() ){
+    $encriptString = $this->getEncryptString();
+}
+?>
+    <div class="fieldset" id="tokenization-form">
+        <h2 class="legend"><?php echo $this->__('Credit Card Data')?></h2>
+        <ul class="form-list">
+            <li>
+                <label for="<?php echo $_code ?>_cc_number" class="required"><em>*</em><?php echo $this->__('Credit Card Number') ?></label>
+                <div class="input-box">
+                    <input type="text" id="<?php echo $_code ?>_cc_number" name="bancasella_iframe[cc_number]" title="<?php echo $this->__('Credit Card Number') ?>" class="input-text required-entry validate-number validate-cc-number" value="" autocomplete="off" />
+                </div>
+            </li>
+            <li>
+                <label for="<?php echo $_code ?>_cc_exp_mm" class="required"><em>*</em><?php echo $this->__('Expiration Date') ?></label>
+                <div class="input-box">
+                    <div class="v-fix">
+                        <select id="<?php echo $_code ?>_cc_exp_mm" name="bancasella_iframe[cc_exp_mm]" class="month required-entry">
+                            <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                                <option value="<?php echo $k?$k:'' ?>"><?php echo $v ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="v-fix">
+                        <select id="<?php echo $_code ?>_cc_exp_yy" name="bancasella_iframe[cc_exp_yy]" class="year required-entry">
+                            <?php foreach ($this->getCcYears() as $k=>$v): ?>
+                                <option value="<?php echo $k?$k:'' ?>"><?php echo $v ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label for="<?php echo $_code ?>_cc_cvv" class="required"><em>*</em><?php echo $this->__('CVV2 / 4DBC') ?></label>
+                <div class="input-box">
+                    <input type="text" id="<?php echo $_code ?>_cc_cvv" name="bancasella_iframe[cc_cvv]" title="<?php echo $this->__('CVV2 / 4DBC') ?>" class="input-text required-entry validate-number" value="" autocomplete="off" />
+                </div>
+            </li>
+            <li>
+                <label for="<?php echo $_code ?>_cc_name" class="required"><em>*</em><?php echo $this->__('Name on Card') ?></label>
+                <div class="input-box">
+                    <input type="text" id="<?php echo $_code ?>_cc_name" name="bancasella_iframe[cc_name]" title="<?php echo $this->__('Name on Card') ?>" class="input-text required-entry" value="" autocomplete="off" />
+                </div>
+            </li>
+            <li>
+                <label for="<?php echo $_code ?>_cc_email" class="required"><em>*</em><?php echo $this->__('Email') ?></label>
+                <div class="input-box">
+                    <input type="text" id="<?php echo $_code ?>_cc_email" name="bancasella_iframe[cc_email]" title="<?php echo $this->__('Email') ?>" class="input-text required-entry validate-email" value="" autocomplete="off" />
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields'); ?></p>
+        <button title="<?php echo $this->__('Send'); ?>" class="button" onclick="EasyNoloTokenization.sendPaymentIframe()"><span><span><?php echo $this->__('Send'); ?></span></span></button>
+    </div>
+<?php if($encriptString): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        if ( typeof EasyNoloTokenization !== 'undefined'){
+
+            var GestPayConfig = {};
+            GestPayConfig.merchantId = '<?php echo $merchantId ?>';
+            GestPayConfig.stringEnctipt = '<?php echo $encriptString ?>';
+            GestPayConfig.formId = 'tokenization-form';
+            GestPayConfig.GestPayExternalClass = GestPay;
+            GestPayConfig.waitImage= '<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>';
+            GestPayConfig.successRedirect = '<?php echo $this->getSuccessRedirect()?>';
+            GestPayConfig.disableProfileRedirect = '<?php echo $this->getDisableProfileRedirect()?>';
+            GestPayConfig.code= '<?php echo $_code ?>';
+            GestPayConfig.enableFormToIframe = typeof BrowserEnabled !== 'undefined'? BrowserEnabled : false;
+
+            EasyNoloTokenization.init(GestPayConfig);
+        }
+        //]]>
+    </script>
+<?php endif; ?>
+
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('tokenization-form', true);
+    //]]>
+</script>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<jstranslator>
+    <!-- gestpayform_onepagecheckout.js -->
+    <payment-wait translate="message" module="easynolo_bancasellapro">
+        <message>You are waiting the completion of payment</message>
+    </payment-wait>
+    <wait-message translate="message" module="easynolo_bancasellapro">
+        <message>Please wait...</message>
+    </wait-message>
+    <redirect-title translate="message" module="easynolo_bancasellapro">
+        <message>Payment authorization error</message>
+    </redirect-title>
+    <redirect-message translate="message" module="easynolo_bancasellapro">
+        <message>Complete payment on Banca Sella website</message>
+    </redirect-message>
+    <confirm translate="message" module="easynolo_bancasellapro">
+        <message>Send Credit Card Data</message>
+    </confirm>
+    <fixed-text translate="message" module="easynolo_bancasellapro">
+        <message>Please correct the highlighted fields</message>
+    </fixed-text>
+    <tredsecure-text translate="message" module="easynolo_bancasellapro">
+        <message>3D secure</message>
+    </tredsecure-text>
+    <!-- end gestpayform_onepagecheckout.js -->
+</jstranslator>

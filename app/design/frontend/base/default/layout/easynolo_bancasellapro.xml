@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<layout>
+
+    <easynolo_bancasellapro_gestpay_redirect>
+        <label>Redirect...</label>
+
+        <block type="easynolo_bancasellapro/newroot" name="root" output="toHtml" template="easynolo/bancasellapro/page/redirect.phtml">
+
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+                <block type="easynolo_bancasellapro/redirect" name="bancasella_gestpay_redirect" template="easynolo/bancasellapro/gestpay/redirect.phtml"></block>
+            </block>
+
+        </block>
+
+    </easynolo_bancasellapro_gestpay_redirect>
+
+    <easynolo_bancasellapro_gestpay_success translate="label">
+        <label>Checkout Success</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="checkout/onepage_success" name="checkout.success" template="checkout/success.phtml"/>
+        </reference>
+    </easynolo_bancasellapro_gestpay_success>
+
+
+
+    <easynolo_bancasellapro_gestpay_confirm3d>
+        <block type="easynolo_bancasellapro/newroot" name="root" output="toHtml" template="easynolo/bancasellapro/page/redirect.phtml">
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <block type="easynolo_bancasellapro/confirm3d"  name="bancasellagestpay_confirm"
+                       template="easynolo/bancasellapro/gestpay/confirm3d.phtml" />
+            </block>
+        </block>
+
+    </easynolo_bancasellapro_gestpay_confirm3d>
+
+    <checkout_onepage_index>
+        <reference name="head">
+
+            <block type="easynolo_bancasellapro/utility_text" name="gestpay.iframe.external"/>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
+        </reference>
+        <reference name="checkout.onepage">
+            <action method="setTemplate">
+                <template>easynolo/bancasellapro/checkout/onepage.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_index>
+
+    <!--WARNING: if you use a magento version 1.6 you must to use this comment handle instead of precedent handle-->
+    <!--<checkout_onepage_index>-->
+        <!--<reference name="head">-->
+
+            <!--<block type="easynolo_bancasellapro/utility_text" name="gestpay.iframe.external"/>-->
+            <!--<action method="addJs"><script>prototype/window.js</script></action>-->
+            <!--<action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>-->
+            <!--<action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>-->
+
+        <!--</reference>-->
+        <!--<reference name="checkout.onepage">-->
+            <!--<action method="setTemplate">-->
+                <!--<template>easynolo/bancasellapro/checkout/onepage1-6.phtml</template>-->
+            <!--</action>-->
+        <!--</reference>-->
+    <!--</checkout_onepage_index>-->
+
+    <opc_index_index>
+        <reference name="head">
+            <block type="easynolo_bancasellapro/utility_text" name="gestpay.iframe.external"/>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/easynolo_bancasella/gestpayform_onepagecheckout.js</name></action>
+        </reference>
+    </opc_index_index>
+
+    <!--WARNING: if you use a magento version 1.6 you must to use this comment handle instead of precedent handle-->
+    <!--<opc_index_index>-->
+        <!--<reference name="head">-->
+            <!--<block type="easynolo_bancasellapro/utility_text" name="gestpay.iframe.external"/>-->
+            <!--<action method="addJs"><script>prototype/window.js</script></action>-->
+            <!--<action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>-->
+            <!--<action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>-->
+            <!--<action method="addItem"><type>skin_js</type><name>js/easynolo_bancasella/gestpayform_onepagecheckout.js</name></action>-->
+        <!--</reference>-->
+    <!--</opc_index_index>-->
+
+
+
+
+    <easynolo_bancasellapro_tokenization_newtoken translate="label">
+        <label>Generate a new token</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <block type="easynolo_bancasellapro/utility_text" name="gestpay.iframe.external"/>
+            <action method="addJs"><script>bancasellapro/newtoken.js</script></action>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
+        </reference>
+
+        <reference name="content">
+            <block type="easynolo_bancasellapro/tokenization_newtoken" name="checkout.success" template="easynolo/bancasellapro/gestpay/newtoken.phtml"/>
+        </reference>
+
+    </easynolo_bancasellapro_tokenization_newtoken>
+
+</layout>

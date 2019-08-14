@@ -1,0 +1,18 @@
+<h1><?php echo Mage::helper('easynolo_bancasellapro')->__('You will be redirected to the payment system website in a few seconds.') ?></h1>
+<div>
+    <p><?php echo Mage::helper('easynolo_bancasellapro')->__('You are redirecting to issuing bank for 3d authentification') ?></p>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+
+    var pares = '<?php echo $this->getPARes() ?>',
+        cartUrl = '<?php echo $this->getCartUrl() ?>',
+        bs = parent.BancaSellaForm;
+
+    if (typeof bs == 'undefined') {
+        parent.location.href = cartUrl;
+    } else {
+        bs.sendPares(pares);
+    }
+    //]]>
+</script>

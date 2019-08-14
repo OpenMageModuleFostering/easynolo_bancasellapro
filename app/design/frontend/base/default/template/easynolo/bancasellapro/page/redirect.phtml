@@ -1,0 +1,22 @@
+<?php
+/**
+ * Template for EasyNolo_BancaSellaPro_Block_Newroot
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
+<head>
+    <?php echo $this->getChildHtml('head') ?>
+</head>
+<body class="page-print<?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+<div>
+    <div class="print-head">
+        <img src="<?php echo $this->getPrintLogoUrl() ? $this->getPrintLogoUrl() : $this->getSkinUrl('images/logo_print.gif') ?>" class="logo" alt="" />
+        <?php if ($this->getPrintLogoText()):?>
+            <address><?php echo nl2br($this->htmlEscape($this->getPrintLogoText())) ?></address>
+        <?php endif;?>
+    </div>
+    <?php echo $this->getChildHtml('content') ?>
+</div>
+</body>
+</html>
