@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/EasyNolo_BancaSellaPro",
+    "name": "OpenMageModuleFostering\/EasyNolo_BancaSellaPro",
     "type": "magento-module",
     "license": "GNU-General-Public-License-(GPL)",
     "homepage": "",
     "description": "Plugin UFFICIALE per integrare Magento con il sistema di pagamento online Banca Sella",
     "authors": [
-    {
-        "name": "EasyNolo Spa",
-        "email": "ecommerce@sella.it"
-    }
-],
+        {
+            "name": "EasyNolo Spa",
+            "email": "ecommerce@sella.it"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
